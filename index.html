@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Dear A ❤️</title>
 
     <style>
@@ -36,11 +37,11 @@
 
     let angle = 0;
 
-    const text = "I love you";
+    const text = "ILY DUT";
 
     function resizeCanvas() {
 
-        // Ukuran asli canvas mengikuti ukuran layar
+        // Mengikuti ukuran layar perangkat
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
@@ -52,20 +53,16 @@
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Ukuran tulisan mengikuti layar
-        const fontSize = Math.min(canvas.width, canvas.height) * 0.055;
-
         ctx.fillStyle = "rgb(255, 51, 128)";
-        ctx.font = `bold ${fontSize}px Arial`;
+        ctx.font = "bold 35px Arial";
 
-        // Titik tengah layar
+        // Posisi tengah layar
         const centerX = canvas.width / 2;
         const centerY = canvas.height / 2;
 
-        // Ukuran hati mengikuti layar
-        const scale = Math.min(canvas.width, canvas.height) * 0.025;
-
-        const numSteps = 70;
+        // Ukuran hati tetap sama seperti kode kamu
+        const scale = 20;
+        const numSteps = 35;
 
         for (let i = 0; i < numSteps; i++) {
 
@@ -73,7 +70,6 @@
                 i * (2 * Math.PI / numSteps)
                 + angle * Math.PI / 180;
 
-            // Rumus hati
             const x =
                 16 * Math.pow(Math.sin(t), 3);
 
@@ -86,26 +82,27 @@
             const posX =
                 (x * scale) + centerX;
 
-            // Membalik koordinat Y
             const posY =
                 (-y * scale) + centerY;
 
             ctx.fillText(text, posX, posY);
         }
 
-        // Kecepatan gerakan
-        angle += 0.15;
+        // Kecepatan tetap seperti kode kamu
+        angle += 0.20;
 
         requestAnimationFrame(drawHeart);
     }
 
     drawHeart();
 
-    // Resize saat ukuran layar berubah
+
+    // Menyesuaikan canvas ketika ukuran layar berubah
     window.addEventListener("resize", resizeCanvas);
 
 </script>
 
 </body>
+
 </html>
 ```
