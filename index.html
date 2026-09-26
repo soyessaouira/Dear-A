@@ -8,14 +8,19 @@
     <title>Dear A ❤️</title>
 
     <style>
-        body {
+        html, body {
             margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
             background: black;
             overflow: hidden;
         }
 
         canvas {
             display: block;
+            width: 100vw;
+            height: 100vh;
         }
     </style>
 </head>
@@ -29,25 +34,38 @@
     const canvas = document.getElementById("heartCanvas");
     const ctx = canvas.getContext("2d");
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
     let angle = 0;
 
-    const text = "ILY DUT";
+    const text = "I love you";
+
+    function resizeCanvas() {
+
+        // Ukuran asli canvas mengikuti ukuran layar
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+    }
+
+    resizeCanvas();
 
     function drawHeart() {
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        ctx.fillStyle = "rgb(255, 51, 128)";
-        ctx.font = "bold 35px Arial";
+        // Ukuran tulisan mengikuti layar
+        const fontSize = Math.min(canvas.width, canvas.height) * 0.055;
 
+        ctx.fillStyle = "rgb(255, 51, 128)";
+        ctx.font = `bold ${fontSize}px Arial`;
+
+        // Titik tengah layar
         const centerX = canvas.width / 2;
         const centerY = canvas.height / 2;
 
-        const scale = 20;
-        const numSteps = 35;
+        // Ukuran hati mengikuti layar
+        const scale = Math.min(canvas.width, canvas.height) * 0.025;
+
+        const numSteps = 70;
 
         for (let i = 0; i < numSteps; i++) {
 
@@ -55,8 +73,9 @@
                 i * (2 * Math.PI / numSteps)
                 + angle * Math.PI / 180;
 
-            
-            const x = 16 * Math.pow(Math.sin(t), 3);
+            // Rumus hati
+            const x =
+                16 * Math.pow(Math.sin(t), 3);
 
             const y =
                 13 * Math.cos(t)
@@ -64,28 +83,26 @@
                 - 2 * Math.cos(3 * t)
                 - Math.cos(4 * t);
 
-            const posX = (x * scale) + centerX;
+            const posX =
+                (x * scale) + centerX;
 
-           
-            const posY = (-y * scale) + centerY;
+            // Membalik koordinat Y
+            const posY =
+                (-y * scale) + centerY;
 
             ctx.fillText(text, posX, posY);
         }
 
-        angle += 0.20;
+        // Kecepatan gerakan
+        angle += 0.15;
 
         requestAnimationFrame(drawHeart);
     }
 
     drawHeart();
 
-
-    window.addEventListener("resize", () => {
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-    });
+    // Resize saat ukuran layar berubah
+    window.addEventListener("resize", resizeCanvas);
 
 </script>
 
