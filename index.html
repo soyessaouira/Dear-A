@@ -40,11 +40,8 @@
     const text = "ILY DUT";
 
     function resizeCanvas() {
-
-        // Mengikuti ukuran layar perangkat
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-
     }
 
     resizeCanvas();
@@ -53,15 +50,31 @@
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+        // Ukuran layar terkecil
+        const screenSize = Math.min(canvas.width, canvas.height);
+
+        /*
+         * Desktop:
+         * scale tetap mendekati 20
+         *
+         * HP:
+         * scale otomatis mengecil
+         */
+        const scale = Math.min(20, screenSize * 0.045);
+
+        /*
+         * Ukuran tulisan juga menyesuaikan layar.
+         * Maksimal tetap 35px seperti kode awal.
+         */
+        const fontSize = Math.min(35, screenSize * 0.08);
+
         ctx.fillStyle = "rgb(255, 51, 128)";
-        ctx.font = "bold 35px Arial";
+        ctx.font = `bold ${fontSize}px Arial`;
 
         // Posisi tengah layar
         const centerX = canvas.width / 2;
         const centerY = canvas.height / 2;
 
-        // Ukuran hati tetap sama seperti kode kamu
-        const scale = 20;
         const numSteps = 35;
 
         for (let i = 0; i < numSteps; i++) {
@@ -70,6 +83,7 @@
                 i * (2 * Math.PI / numSteps)
                 + angle * Math.PI / 180;
 
+            // Rumus hati
             const x =
                 16 * Math.pow(Math.sin(t), 3);
 
@@ -82,6 +96,7 @@
             const posX =
                 (x * scale) + centerX;
 
+            // Membalik koordinat Y
             const posY =
                 (-y * scale) + centerY;
 
@@ -96,8 +111,7 @@
 
     drawHeart();
 
-
-    // Menyesuaikan canvas ketika ukuran layar berubah
+    // Menyesuaikan ketika ukuran layar berubah
     window.addEventListener("resize", resizeCanvas);
 
 </script>
